@@ -5,25 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Edit Post</title>
-  <style>
-    body { background: #fff; color: #111; font-family: sans-serif; }
-  </style>
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-  <h1>Edit Post</h1>
-  @if ($errors->any())
-    <div style="color: red;">
-      @foreach ($errors->all() as $error)
-        <p>{{ $error }}</p>
-      @endforeach
-    </div>
-  @endif
-  <form action="/edit-post/{{$post->id}}" method="POST">
-    @csrf
-    @method('PUT')
-    <input type="text" name="title" value="{{$post->title}}">
-    <textarea name="body">{{$post->body}}</textarea>
-    <button>Save Changes</button>
-  </form>
+  <div class="wrap">
+    <header class="app-header">
+      <h1>Edit Post</h1>
+      <a class="btn ghost" href="/">Back</a>
+    </header>
+
+    @if ($errors->any())
+      <div class="alert">
+        @foreach ($errors->all() as $error)
+          <p>{{ $error }}</p>
+        @endforeach
+      </div>
+    @endif
+
+    <section class="card">
+      <form class="form" action="/edit-post/{{ $post->id }}" method="POST">
+        @csrf
+        @method('PUT')
+        <label>
+          Title
+          <input type="text" name="title" value="{{ $post->title }}">
+        </label>
+        <label>
+          Body
+          <textarea name="body">{{ $post->body }}</textarea>
+        </label>
+        <div class="actions">
+          <button type="submit">Save Changes</button>
+          <a class="btn ghost" href="/">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </div>
 </body>
 </html>
